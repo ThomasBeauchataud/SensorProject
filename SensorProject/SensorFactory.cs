@@ -1,20 +1,36 @@
 ﻿using System;
+using System.Reflection;
 
 namespace SensorProject
 {
     public class SensorFactory
     {
-        public static Sensor createSensor(SensorUnity sensorUnity, SensorType sensorType)
+        public static Sensor CreateSensor(SensorUnity sensorUnity, SensorType sensorType)
         {
-            Sensor sensor = new BasicSensor(null);
-            Attribute[] sensorAttributes = Attribute.GetCustomAttributes(sensor.GetType());
-            foreach(Attribute attribute in sensorAttributes)
+            Visualizer visualizer = VisualizerFactory.CreateVisualizer(sensorUnity, sensorType);
+            Sensor sensor = CreateSensorIntenral(sensorUnity, sensorType);
+            VisualizerAttribute visualizerAttribute = (VisualizerAttribute)visualizer.GetType().GetCustomAttribute(typeof(VisualizerAttribute));
+            if (visualizerAttribute.unity != sensorUnity)
             {
-                if(attribute is SensorAttribute)
+                sensor = (Sensor)ConverterFactory.CreateConverter(visualizerAttribute.unity, sensorUnity, sensor, visualizer);
+            } 
+            return sensor;
+        }
+
+        private static Sensor CreateSensorIntenral(SensorUnity sensorUnity, SensorType sensorType)
+        {
+            Sensor sensor = null;
+            foreach (Type sensorClass in typeof(Sensor).Assembly.GetTypes())
+            {
+                SensorAttribute sensorAttribute = (SensorAttribute)sensorClass.GetCustomAttribute(typeof(SensorAttribute));
+                if (sensorAttribute != null && sensorAttribute.type == sensorType && sensorAttribute.unity == sensorUnity)
                 {
-                    ((SensorAttribute)attribute).type = sensorType;
-                    ((SensorAttribute)attribute).unity = sensorUnity;
+                    sensor = (Sensor)Activator.CreateInstance(sensorClass);
                 }
+            }
+            if (sensor == null)
+            {
+                throw new Exception("There is no sensor class corresponding the this criteria, type: " + sensorType + ", unity: " + sensorUnity);
             }
             return sensor;
         }

@@ -6,7 +6,9 @@ namespace SensorProject
     {
         static void Main(string[] args)
         {
-            Sensor sensor = SensorFactory.createSensor(SensorUnity.Celsuis, SensorType.Temperature);
+            SensorManagement sensorManagement = new SensorManagement();
+            sensorManagement.AddSensor(SensorFactory.CreateSensor(SensorUnity.Farhaneit, SensorType.Temperature));
+            sensorManagement.RunSensors();
             Console.ReadKey();
         }
     }

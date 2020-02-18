@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SensorProject
 {
+    [Sensor(SensorType.Temperature, SensorUnity.Farhaneit)]
     public class TemperatureSensor : Sensor
     {
         private Visualizer visualizer;
+
+        public TemperatureSensor () { }
 
         public TemperatureSensor(Visualizer visualizer)
         {
@@ -16,8 +17,13 @@ namespace SensorProject
         public void Sense()
         {
             Random random = new Random();
-            object data = random.Next(0, 1000);
+            object data = random.Next(0, 30);
             this.visualizer.Visualize(data);
+        }
+
+        public void SetVisualizer(Visualizer visualizer)
+        {
+            this.visualizer = visualizer;
         }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SensorProject
 {
@@ -10,5 +8,11 @@ namespace SensorProject
         public SensorUnity unity;
 
         public SensorAttribute() { }
+
+        public SensorAttribute(SensorType type, SensorUnity unity)
+        {
+            this.type = type;
+            this.unity = unity;
+        }
     }
 }

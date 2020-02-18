@@ -2,7 +2,8 @@
 
 namespace SensorProject
 {
-    public class TemperatureVisualize : Visualizer
+    [Visualizer(SensorType.Temperature, SensorUnity.Celsuis)]
+    public class TemperatureVisualizer : Visualizer
     {
         public void Visualize(object data)
         {
