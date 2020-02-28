@@ -17,7 +17,7 @@ namespace SensorProject
         public void Sense()
         {
             Random random = new Random();
-            object data = random.Next(0, 30);
+            object data = random.Next(-4, 68);
             this.visualizer.Visualize(data);
         }
 

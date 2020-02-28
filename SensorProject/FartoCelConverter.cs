@@ -11,7 +11,7 @@ namespace SensorProject
  
         protected override object Convert(object data)
         {
-            return (32 * (int)data - 32) * 5 / 9;
+            return ((int)data - 32) * 5 / 9;
         }
     }
 }

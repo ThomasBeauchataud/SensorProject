@@ -8,7 +8,7 @@ namespace SensorProject
         public static Sensor CreateSensor(SensorUnity sensorUnity, SensorType sensorType)
         {
             Visualizer visualizer = VisualizerFactory.CreateVisualizer(sensorUnity, sensorType);
-            Sensor sensor = CreateSensorIntenral(sensorUnity, sensorType);
+            Sensor sensor = CreateSensorInternal(sensorUnity, sensorType);
             VisualizerAttribute visualizerAttribute = (VisualizerAttribute)visualizer.GetType().GetCustomAttribute(typeof(VisualizerAttribute));
             if (visualizerAttribute.unity != sensorUnity)
             {
@@ -17,7 +17,7 @@ namespace SensorProject
             return sensor;
         }
 
-        private static Sensor CreateSensorIntenral(SensorUnity sensorUnity, SensorType sensorType)
+        private static Sensor CreateSensorInternal(SensorUnity sensorUnity, SensorType sensorType)
         {
             Sensor sensor = null;
             foreach (Type sensorClass in typeof(Sensor).Assembly.GetTypes())
