@@ -9,7 +9,7 @@ namespace SensorProject
         protected Sensor sensor;
         protected Visualizer visualizer;
 
-        protected Converter(Sensor sensor, Visualizer visualizer)
+        public Converter(Sensor sensor, Visualizer visualizer)
         {
             this.sensor = sensor;
             this.visualizer = visualizer;
